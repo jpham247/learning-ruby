@@ -28,10 +28,16 @@ require 'weather_hash' # Requires a weather_hash gem installed prior to usage
 
 module WeatherDataParser
   def get_forecast(data)
+    forecast_data = data["channel"]["item"]["forecast"]
+    # puts forecast_data.inspect
+    return forecast_data
   end
 
   def get_sun_data(data)
-    return "Sundata"
+    sun_data = Hash.new
+    sun_data.store(:sunrise,data["channel"]["astronomy"]["sunrise"])
+    sun_data.store(:sunset,data["channel"]["astronomy"]["sunset"])
+    return sun_data
   end
 end
 
@@ -45,7 +51,7 @@ class WeatherChecker
       # Set Default Dates
       @current_city = "San Jose"
       @current_state = "CA"
-      @day_display_width = 20
+      @day_display_width = 22
       retrieve_weather_data(current_city,current_state)
   end
 
@@ -86,17 +92,18 @@ class WeatherChecker
   end
 
   def show_day(data,day_index)
+    # Data description
     puts weather_data["channel"]["item"]["title"]
-    # day_output = Array.new
-    # lines = 0
-    # day_index.times do |day|
-      # line_array = Array.new if day == 0
-      #START
-    # line_array[day]
+    # Get Forecast Data
+    forecast_data = get_forecast(weather_data)
+    # Start Bar
     puts "%"*@day_display_width
     # DAY
     # Build 'day' string with text padding, use Day index to determine day value
-    puts "%       Day       %"
+    day_string = forecast_data[day_index]["day"]
+    date_string = forecast_data[day_index]["date"]
+    puts "%" + day_string.center(@day_display_width-2) + "%"
+    puts "%" + date_string.center(@day_display_width-2) + "%"
     # Bottom Separator
     puts "%"*@day_display_width
     # end
@@ -105,10 +112,9 @@ class WeatherChecker
   def show_sun_data(data,day_index)
     # day_index.times do |day|
       # Build Sun Data Strings from day_index,date, and weather data
-      # sun_data = get_sun_data(weather_data)
-      puts sun_data.inspect
-      puts "% Sunrise % 6:00A %"
-      puts "% Sunset  % 6:00P %"
+      sun_data = get_sun_data(weather_data)
+      puts "% Sunrise %#{sun_data[:sunrise].center(@day_display_width-12)}%"
+      puts "% Sunset  %#{sun_data[:sunset].center(@day_display_width-12)}%"
       # Bottom Separator
       puts "%"*@day_display_width
     # end
@@ -150,10 +156,7 @@ class WeatherChecker
 end
 
 
-
-
-
 weatherapp = WeatherChecker.new
 # weatherapp.run
-puts weatherapp.weather_data
+# puts weatherapp.weather_data
 puts weatherapp.display_sun_data(1)
