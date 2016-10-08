@@ -65,6 +65,7 @@ class WeatherChecker
       puts "l: Set New Location"
       puts "f: Get 7-Day Forecast"
       puts "s: Get Today's Sun Data"
+      puts "t: Get Today's Forecast"
       puts "e : Exit"
 
       print "Enter your choice : "
@@ -76,6 +77,8 @@ class WeatherChecker
         display_forecast(7)
       when 's'
         display_sun_data
+      when 't'
+        display_todays_data
       when 'e'
         break
       end
@@ -95,6 +98,7 @@ class WeatherChecker
 
   def show_day(data,num_days)
     # Data description
+    puts ""
     puts weather_data["channel"]["item"]["title"]
     # SETUP: Get Forecast Data
     forecast_data = get_forecast(data)
@@ -209,6 +213,12 @@ class WeatherChecker
     show_conditions(weather_data,num_days)
   end
 
+  def display_todays_data
+    show_day(weather_data,1)
+    show_sun_data(weather_data)
+    show_temps(weather_data,1)
+    show_conditions(weather_data,1)
+  end
 end
 
 weatherapp = WeatherChecker.new
