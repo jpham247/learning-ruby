@@ -47,18 +47,20 @@ class WeatherChecker
 
 
   def initialize
+      puts "Weather Report App"
+      puts "%"*40
       @date = "date" # Set today's date.
       # Set Default Dates
       @current_city = "San Jose"
       @current_state = "CA"
-      @day_display_width = 22
+      @day_display_width = 23
       retrieve_weather_data(current_city,current_state)
   end
 
   def run
     loop do
+      puts "Menu"
       puts "-"*40
-      puts "Weather Report App"
       # Menu
       puts "l: Set New Location"
       puts "f: Get 7-Day Forecast"
@@ -73,7 +75,7 @@ class WeatherChecker
       when 'f'
         display_forecast(7)
       when 's'
-        display_sun_data(1)
+        display_sun_data
       when 'e'
         break
       end
@@ -91,28 +93,42 @@ class WeatherChecker
     @weather_data = WeatherHash.lookup(city, state)
   end
 
-  def show_day(data,day_index)
+  def show_day(data,num_days)
     # Data description
     puts weather_data["channel"]["item"]["title"]
-    # Get Forecast Data
-    forecast_data = get_forecast(weather_data)
+    # SETUP: Get Forecast Data
+    forecast_data = get_forecast(data)
+    day_output_array = Array.new
+    # Build Output Array
+    num_days.times {day_output_array.push(Array.new)}
     # Start Bar
-    puts "%"*@day_display_width
-    # DAY
-    # Build 'day' string with text padding, use Day index to determine day value
-    day_string = forecast_data[day_index]["day"]
-    date_string = forecast_data[day_index]["date"]
-    puts "%" + day_string.center(@day_display_width-2) + "%"
-    puts "%" + date_string.center(@day_display_width-2) + "%"
-    # Bottom Separator
-    puts "%"*@day_display_width
-    # end
+    num_days.times do |day_index|
+      day_output_array[day_index].push("%"*@day_display_width) #0
+      # DAY
+      # Build 'day' string with text padding, use Day index to determine day value
+      day_string = forecast_data[day_index]["day"]
+      date_string = forecast_data[day_index]["date"]
+      day_string = "%" + day_string.center(@day_display_width-2) + "%"
+      date_string = "%" + date_string.center(@day_display_width-2) + "%"
+      day_output_array[day_index].push(day_string) #1
+      day_output_array[day_index].push(date_string) #2
+      # Bottom Separator
+      day_output_array[day_index].push("%"*@day_display_width) #3
+    end
+    # OUTPUT to Screen
+    4.times do |line_index| # For Each Line
+      line_output = ""
+      day_output_array.each do |day| # EACH Day
+        line_output += day[line_index]
+      end
+      puts line_output
+    end
   end
 
-  def show_sun_data(data,day_index)
+  def show_sun_data(data)
     # day_index.times do |day|
       # Build Sun Data Strings from day_index,date, and weather data
-      sun_data = get_sun_data(weather_data)
+      sun_data = get_sun_data(data)
       puts "% Sunrise %#{sun_data[:sunrise].center(@day_display_width-12)}%"
       puts "% Sunset  %#{sun_data[:sunset].center(@day_display_width-12)}%"
       # Bottom Separator
@@ -120,19 +136,58 @@ class WeatherChecker
     # end
   end
 
-  def show_conditions(data,day_index)
-    day_index.times do |day|
-      #
+  def show_conditions(data,num_days)
+    # SETUP: Get Forecast Data
+    forecast_data = get_forecast(data)
+    conditions_output_array = Array.new
+    # Build Output Array
+    num_days.times {conditions_output_array.push(Array.new)}
+    # Start Bar
+    num_days.times do |day_index|
+      condition_string = forecast_data[day_index]["text"]
+      condition_string = "%" + condition_string.center(@day_display_width-2) + "%"
+      conditions_output_array[day_index].push(condition_string) #0
       # Bottom Separator
-      puts "%"*@day_display_width
+      conditions_output_array[day_index].push("%"*@day_display_width) #1
+    end
+    # OUTPUT to Screen
+    2.times do |line_index| # For Each Line
+      line_output = ""
+      conditions_output_array.each do |day| # EACH Day
+        line_output += day[line_index]
+      end
+      puts line_output
     end
   end
 
-  def show_temps(data,day_index)
-    day_index.times do |day|
-      #
+  def show_temps(data,num_days)
+    # SETUP: Get Forecast Data
+    forecast_data = get_forecast(data)
+    temp_output_array = Array.new
+    # Build Output Array
+    num_days.times {temp_output_array.push(Array.new)}
+    # Start Bar
+    num_days.times do |day_index|
+      low_string = forecast_data[day_index]["low"]
+      low_title = "Low"
+      high_string = forecast_data[day_index]["high"]
+      high_title = "High"
+      low_string = "%" + low_title.center((@day_display_width-3)/2) + "%" + low_string.center((@day_display_width-3)/2) + "%"
+      high_string = "%" + high_title.center((@day_display_width-3)/2) + "%" + high_string.center((@day_display_width-3)/2) + "%"
+
+      temp_output_array[day_index].push(low_string) #0
+      temp_output_array[day_index].push(high_string) #1
+
       # Bottom Separator
-      puts "%"*@day_display_width
+      temp_output_array[day_index].push("%"*@day_display_width) #2
+    end
+    # OUTPUT to Screen
+    3.times do |line_index| # For Each Line
+      line_output = ""
+      temp_output_array.each do |day| # EACH Day
+        line_output += day[line_index]
+      end
+      puts line_output
     end
   end
 
@@ -140,11 +195,12 @@ class WeatherChecker
     @current_city = ask_for_input("Please provide a City")
     @current_state = ask_for_input("Please provide the City's State")
     retrieve_weather_data(current_city,current_state)
+    puts "Weather Ready for #{current_city}, #{current_state}" if @weather_data != nil
   end
 
-  def display_sun_data(num_days)
-    show_day(weather_data,num_days)
-    show_sun_data(weather_data,num_days)
+  def display_sun_data
+    show_day(weather_data,1)
+    show_sun_data(weather_data)
   end
 
   def display_forecast(num_days)
@@ -155,8 +211,5 @@ class WeatherChecker
 
 end
 
-
 weatherapp = WeatherChecker.new
-# weatherapp.run
-# puts weatherapp.weather_data
-puts weatherapp.display_sun_data(1)
+weatherapp.run
