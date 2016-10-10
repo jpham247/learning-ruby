@@ -21,3 +21,7 @@ string.downcase # In Place toLower
 string.downcase! # Setting toLower
 
 string.gsub("a","A") # swap instances of "a" with "A"
+
+#Format String
+var = "LETS DO THIS"
+puts "This is the variable i care about: %s" % var
