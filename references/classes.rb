@@ -52,3 +52,29 @@ class Car < ClassName
   end
 
 end
+
+# Structs are simple Classes which have accessors and minimal methods.
+
+StructClass = Struct.new(:member_1, :member_2) do 
+  # Create Simple methods
+  def output_members
+    puts "#{member_1} & #{member_2}"
+  end
+end
+
+#!!!equivalent!!!
+class StructClass
+  attr_accessor :member_1, :member_2
+
+  def initialize(value1,value2)
+    @member_1, @member_2 = value1, value2
+  end
+end
+
+# Instantiate as foolows
+
+struct = StructClass.new("first_name","last_name")
+# Structs automatically include the Enumerator module, which loops through its attributes.
+struct.each_pair do |key, value|
+  puts "#{key} == #{value}" #Output each member's value to the console
+end
