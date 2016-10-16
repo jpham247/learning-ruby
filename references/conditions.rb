@@ -33,3 +33,10 @@ fortuneCookie
 my_name ||= "Jonathan"
 # Sets my_name to "Jonathan" if my_name was previously unset.
 my_name = (my_name || "Jonathan")
+
+
+# Unusual keywords 
+flag = false
+unless flag != false
+  puts "Flag is still true"
+end
