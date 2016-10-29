@@ -10,31 +10,73 @@ After completing this, you may be wondering how to include CSS into your local H
 <!DOCTYPE html>
 <html>
 <title>Jonathan Pham</title>
+<head>
+	<meta charset="utf-8">
+<!-- 	<link rel="stylesheet" href="normalize.css"> -->
+	<style media="screen" type="text/css">
+		/*Adding style*/
+		body {
+			background-color : linen;
+			font-family : "Cambria", sans-serif;
+		}
+		header {
+			background-color : darkcyan;
+			text-align : center;
+		}
+		header a {
+			color : White;
+			text-decoration: none;
+		}
+
+		nav ul{
+			background-color : lightseagreen;
+		}
+
+		nav a {
+			color : white;
+			text-decoration: none;
+		}
+
+		h2 {
+
+		}
+		
+		p {
+			color : black;
+		}
+	</style>
+</head>
+
+<body>
+
 <header>
-		<a href="index.html">
-			<h1>Jonathan Pham</h1>
-			<h2>Software Engineer</h2>
-		</a>
+	<a href="index.html">
+	<h1>Jonathan Pham</h1>
+	<h2>Software Engineer</h2>
+	</a>
+<!-- Navigation Pane -->
+	<nav>
+		<ul>
+			<li><a href="index.html">Summary</a></li>
+			<li><a href="education.html">Education</a></li>
+			<li><a href="experience.html">Experience</a></li>
+			<li><a href="portfolio.html">Portolio</a></li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="contact.html">Contact</a></li>
+	  </ul>
+	</nav>
 </header>
 
-<!-- Navigation Pane -->
-<nav>
-	<ul>
-		<li><a href="index.html">Summary</a></li>
-		<li><a href="education.html">Education</a></li>
-		<li><a href="experience.html">Experience</a></li>
-		<li><a href="portfolio.html">Portolio</a></li>
-		<li><a href="about.html">About</a></li>
-		<li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
 <main>
 	<section>
 	  <h2>At a Glance</h2>
 	  <!-- COMMENT -->
 	  <h1>About Me</h1>
+	  <p>
+	    I'd usually like to show not tell, but I don't have enough stuff yet. So you get a little story to explain who I am.
+	  </p>
 	  <code>
-	  <pre>
+		  <pre>
 class Jonathan extends Human
 	attr_accessor :name, :company, :profession
 
@@ -44,18 +86,25 @@ class Jonathan extends Human
 		@profession = "Software Developer"
 	end
 end
-  	</pre>
+	  	</pre>
 	  </code>
-	  
-	  <p>
-	    About me or what I believe in. I'd usually like to show not tell, but I don't have enough stuff yet. So you get a little story to explain who I am and why I'm <b>AmahZing</b>.
-	  </p>
+		<hr>
 
 	  <p>
-	    This page is a little bit about me, what I do, and how I do it. Maybe try to duplicate LinkedIn / Resume.
-	    <br>
-	    Discuss your education and how you've oriented outside of your degree, but how you've always
-	    kept in touch with your interests.
+			<small>I</small> am an engineer with a primary interest in software, computer science, cloud / web computing products and associated technologies. If you've seen my education history, you may have noticed I have two degrees that aren't really related to computer science. For reasons that even I don't know I did a weird transition in college from Electrical Engineering / Computer Science to Biomedical Engineering to Neuroscience, which I then followed up with a Masters in biomedical engineering. Though these were the official paths of study I took, I had always maintained some sort relationship with technologies as indicated by my primary fields of research,  in my undergraduate years this was on the utilization of computer vision to determine better statistical data from animal behavior tests and later on for my research thesis I did work with medical device imaging algorithms for blood flow mapping.  
+
+			In 2012, I was given the opportunity to take a software engineering position at a Defense company. While I have enjoyed the opportunity, the methodologies, technologies, and practices employed are out-of-date from a software perspective. The company inherently designs combat vehicle systems and thus takes a very long cycle systems engineering approach to its product development. And while I have tried my best to elevate and improve efficiencies with current standards of software development within the software groups, I have been mostly met by apathy, disinterest, or resistance to anything which strays from legacy practices. 
+
+			Still, in the absence of a hard order to stop trying to rock the boat, I've developed a lot of skills across the software product development cycle with wearing many hats as a Software  Developer / Tester (QA) / Project Manager (Agile Engineering PM) / Release Engineer / Operations (VCS, Continuous Integration, Testing and Deployment).  I'm hoping to make a change to a new company that produces software products and has a culture committed to continuous software improvement. 
+
+			<ul>
+				<li>Web Applications (Server-Side)</li>
+				<li>Service Support Applications</li>
+				<li>Distributed Services</li>
+				<li>SAAS</li>
+				<li>Mobile Applications</li>
+				<li>Cloud Computing / Containerization</li>
+			</ul>
 	  </p>
 
 	  <h2>Experience</h2>
@@ -153,12 +202,19 @@ end
 
 	  <h3>I'd like to think I'm pretty reachable...</h3>
 	  <p>Social Media Links</p>
-	  <div name="Social Links">Insert Icons</div>
+	  <div name="Social Links">
+	  <a href="www.github.com"><img src="github.jpg"></a>
+	  <a href="www.linkedin.com"><img src="linkedin.png"></a>
+	  <a href="www.twitter.com"><img src="twitter.png"></a>
+	  <a href="www.bitbucket.com"><img src="bitbucket.png"></a>
+	  </div>
 	</section>
 </main>
 
 <footer>
 	<p>&copy; 2016 Jonathan Pham. </p>
 </footer>
+
+<body>
 
 <html>
