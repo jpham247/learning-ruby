@@ -37,6 +37,16 @@ After completing this, you may be wondering how to include CSS into your local H
 			text-decoration: none;
 		}
 
+		pre {
+			background-color : grey;
+			border : dashed 5px black;
+			padding : 5px;
+		}
+		pre code {
+			color : white;
+			font-family: monospace;
+		}
+
 		h2 {
 
 		}
@@ -44,6 +54,8 @@ After completing this, you may be wondering how to include CSS into your local H
 		p {
 			color : black;
 		}
+
+
 	</style>
 </head>
 
@@ -75,8 +87,7 @@ After completing this, you may be wondering how to include CSS into your local H
 	  <p>
 	    I'd usually like to show not tell, but I don't have enough stuff yet. So you get a little story to explain who I am.
 	  </p>
-	  <code>
-		  <pre>
+	  <pre><code>
 class Jonathan extends Human
 	attr_accessor :name, :company, :profession
 
@@ -86,8 +97,7 @@ class Jonathan extends Human
 		@profession = "Software Developer"
 	end
 end
-	  	</pre>
-	  </code>
+	  </code></pre>
 		<hr>
 
 	  <p>
